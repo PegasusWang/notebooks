@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 import http.client
 from six.moves import urllib
 from wsgiref.headers import Headers
@@ -55,10 +56,50 @@ def request_response_application(func):
     return application
 
 
-@request_response_application
-def application(request):
-    name = request.args.get('name', 'default_name')    # 获取查询字符串中的 name
-    return Response(['<h1>hello {name}</h1>'.format(name=name)])
+class NotFoundError(Exception):
+    """ url pattern not found """
+    pass
+
+
+class DecoratorRouter:
+    def __init__(self):
+        self.routing_table = []    # 保存 url pattern 和 可调用对象
+
+    def match(self, path):
+        for (pattern, callback) in self.routing_table:
+            m = re.match(pattern, path)
+            if m:
+                return (callback, m.groups())
+        raise NotFoundError()
+
+    def __call__(self, pattern):
+        def _(func):
+            self.routing_table.append((pattern, func))
+        return _
+
+
+routers = DecoratorRouter()
+
+
+@routers(r'/hello/(.*)/$')
+def hello(request, name):
+    return Response("<h1>Hello, {name}</h1>".format(name=name))
+
+
+@routers(r'/goodbye/(.*)/$')
+def goodbye(request, name):
+    return Response("<h1>Goodbye, {name}</h1>".format(name=name))
+
+
+def application(environ, start_response):
+    try:
+        request = Request(environ)
+        callback, args = routers.match(request.path)
+        response = callback(request, *args)
+    except NotFoundError:
+        response = Response("<h1>Not found</h1>", status=404)
+    start_response(response.status, response.headers.items())
+    return iter(response)
 
 
 if __name__ == '__main__':
