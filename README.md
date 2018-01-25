@@ -8,6 +8,10 @@ My jupyter notebooks
 
 ```
 python3 -m pip install jupyter    # or python -m pip install jupyter
+
 pip install RISE    # https://github.com/damianavila/RISE
-jupyter notebook    # open notebooks
+jupyter-nbextension install rise --py --sys-prefix
+jupyter-nbextension enable rise --py --sys-prefix
+
+jupyter notebook    # 换到切项目根目录下执行
 ```
