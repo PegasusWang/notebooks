@@ -7,7 +7,7 @@ My jupyter notebooks
 # usage
 
 ```
-# https://github.com/damianavila/RISE
-pip install RISE
-jupyter notebook
+python3 -m pip install jupyter    # or python -m pip install jupyter
+pip install RISE    # https://github.com/damianavila/RISE
+jupyter notebook    # open notebooks
 ```
