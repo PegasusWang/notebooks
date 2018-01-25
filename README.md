@@ -15,3 +15,8 @@ jupyter-nbextension enable rise --py --sys-prefix
 
 jupyter notebook    # 换到切项目根目录下执行
 ```
+
+# demo:
+
+![](http://7ktuty.com1.z0.glb.clouddn.com/jupyter1.png)
+![](http://7ktuty.com1.z0.glb.clouddn.com/jupyter2.png)
