@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
-import http.client
+from six.moves import http_client
 from six.moves import urllib
 from wsgiref.headers import Headers
 
@@ -32,7 +32,7 @@ class Response(object):
 
     @property
     def status(self):
-        status_string = http.client.responses.get(self._status, 'UNKNOWN')
+        status_string = http_client.responses.get(self._status, 'UNKNOWN')
         return '{status} {status_string}'.format(status=self._status, status_string=status_string)
 
     def __iter__(self):

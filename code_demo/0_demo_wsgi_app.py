@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 def application(environ, start_response):
-    # print(environ)
+    import pprint; pprint.pprint(environ)
     status = '200 OK'
     headers = [('Content-Type', 'text/html; charset=utf8')]
 
