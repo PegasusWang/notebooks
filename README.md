@@ -3,6 +3,7 @@
 My jupyter notebooks
 
 用使 RISE 制作的 notebooks 演讲稿。你可以用 jupyter 打开 ipynb 文件来查看。
+只在python3.6 下测试过。
 
 专栏介绍: https://zhuanlan.zhihu.com/p/47418033
 
